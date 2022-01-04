@@ -1,0 +1,35 @@
+---
+title: "Rename and Move Files From Folders"
+author: '[Mari K Reeves](https://github.com/marireeves)'
+date: "`r Sys.Date()`"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+## Warning. This script renames and moves files on your computer. If you want them in their original places, make a copy before running the script. There is no "undo" button without writing more code here. 
+```{r}
+rm(list = ls()) #remove all past worksheet variables
+
+OutDir<-"D:" #Type in the quotes the directory where you want photos to go...if you copy from windows explorer change the direction of the slash so it matches this example
+
+PhotoDir<-"D:/KFRPBPhotos/MH08" #Type in where the photos are currently... the main folder with all the subfolders
+
+#make a list of the photos in the photo directory
+folderpics<-list.files(PhotoDir, recursive = T, full.names = T, pattern = "JPG")
+
+```
+
+
+
+```{r, blow away recursive structure and copy files to the out directory keeping the folder names in the filename}
+
+for (pic in folderpics){
+  newname<-sub(PhotoDir, OutDir, pic)
+  newname<-gsub("/", "_", newname)
+  file.rename(pic, newname)
+}
+```
+
+
+
